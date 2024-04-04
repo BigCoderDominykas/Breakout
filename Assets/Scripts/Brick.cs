@@ -7,6 +7,7 @@ public class Brick : MonoBehaviour
     [SerializeField] int hp;
     public int score = 100;
     public GameObject particles;
+    public AudioClip destroySound;
 
     public void Damage()
     {
@@ -14,6 +15,7 @@ public class Brick : MonoBehaviour
         if (hp <= 0)
         {
             Instantiate(particles, transform.position, Quaternion.identity);
+            GetComponent<AudioSource>().PlayOneShot(destroySound);
             Destroy(gameObject);
             GameManager.score += score;
         }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,25 +14,37 @@ public class GameManager : MonoBehaviour
 
     public GameObject winScreen;
     public GameObject loseScreen;
+    public AudioClip winSound;
+    public AudioClip loseSound;
 
-    Brick[] bricks;
+    //public float timer = 2f;
 
     private void Update()
     {
         scoreText.text = "Score: " + score;
         livesText.text = "Lives: " + lives;
 
-        bricks = GetComponentsInChildren<Brick>();
-
         if (lives <= 0)
         {
             loseScreen.SetActive(true);
+            GetComponent<AudioSource>().PlayOneShot(loseSound);
+            enabled = false;
         }
 
-        if (bricks.Length == 0)
+        if (transform.childCount < 1)
         {
             winScreen.SetActive(true);
-            print("win");
+            GetComponent<AudioSource>().PlayOneShot(winSound);
+            enabled = false;
         }
+    }
+
+    void FullReset()
+    {
+        SceneManager.LoadScene("SampleScene");
+        score = 0;
+        lives = 3;
+        scoreText.text = "Score: " + score;
+        livesText.text = "Lives: " + lives;
     }
 }

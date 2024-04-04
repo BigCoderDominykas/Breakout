@@ -6,12 +6,15 @@ public class Ball : MonoBehaviour
 {
     public float maxSpeed = 5;
     public Transform spawnPoint;
+    public AudioClip bounceSound;
 
     Rigidbody2D rb;
+    AudioSource source;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        source = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -21,6 +24,7 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        source.PlayOneShot(bounceSound);
         var brick = collision.gameObject.GetComponent<Brick>();
 
         if (brick != null)
