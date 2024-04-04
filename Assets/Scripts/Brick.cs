@@ -5,6 +5,7 @@ using UnityEngine;
 public class Brick : MonoBehaviour
 {
     [SerializeField] int hp;
+    public int score = 100;
     public GameObject particles;
 
     public void Damage()
@@ -14,6 +15,7 @@ public class Brick : MonoBehaviour
         {
             Instantiate(particles, transform.position, Quaternion.identity);
             Destroy(gameObject);
+            GameManager.score += score;
         }
     }
 }
