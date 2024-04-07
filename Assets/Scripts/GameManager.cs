@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static int score;
     public static int lives = 3;
 
+    //public float restartDelay = 1f;
     public TMP_Text scoreText;
     public TMP_Text livesText;
 
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
         {
             loseScreen.SetActive(true);
             GetComponent<AudioSource>().PlayOneShot(loseSound);
+            FullReset();
             enabled = false;
         }
 
@@ -35,13 +37,14 @@ public class GameManager : MonoBehaviour
         {
             winScreen.SetActive(true);
             GetComponent<AudioSource>().PlayOneShot(winSound);
+            FullReset();
             enabled = false;
         }
     }
 
     void FullReset()
     {
-        SceneManager.LoadScene("SampleScene");
+        //SceneManager.LoadScene("SampleScene");
         score = 0;
         lives = 3;
         scoreText.text = "Score: " + score;
